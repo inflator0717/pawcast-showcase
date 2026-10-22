@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PawCast — 把培训视频放进桌面壁纸里</title>
+    <link rel="icon" href="./assets/icon.png" type="image/png" />
+    <meta
+      name="description"
+      content="PawCast 是面向企业培训碎片化学习的 macOS 桌面宠物与壁纸联动视频播放器。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./config.js"></script>
+    <script>
+      // 提前标记 .js，避免首帧先画出内容再被淡入规则藏起来（闪烁）。
+      if (
+        'IntersectionObserver' in window &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        document.documentElement.classList.add('js');
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="site-header">
+        <img
+          class="brand-icon"
+          src="./assets/icon.png"
+          alt="PawCast 应用图标"
+          width="40"
+          height="40"
+        />
+        <span class="brand-name">PawCast</span>
+      </header>
+
+      <main>
+        <section class="hero">
+          <p class="hero__brand">PawCast</p>
+          <h1>桌面宠物，陪你学点东西</h1>
+          <p class="hero__lede">把培训视频放进你的桌面壁纸里。</p>
+          <a class="btn" href="#download">下载 macOS 版</a>
+          <p class="hero__meta">v0.1.0 · Apple Silicon · 约 142 MB</p>
+        </section>
+
+        <section id="positioning" class="reveal positioning">
+          <h2>让学习视频，落在工作间隙里</h2>
+          <p class="positioning__body">
+            PawCast 面向企业培训中的碎片化学习与桌面信息展示场景，是一只常驻桌面角落的像素小狗，也是一块与壁纸电视等大的透明播放框。桌面宠物、壁纸场景与视频播放窗口融合在一起，增加桌面的趣味性与陪伴感，降低学习视频的访问和操作成本，让用户更愿意利用工作间隙学习培训课程、回顾业务知识。
+          </p>
+        </section>
+
+        <section id="features" class="reveal features">
+          <h2>三件小事</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>桌面宠物，随手陪伴</h3>
+              <p>一只像素小狗常驻屏幕角落，想去哪里就拖到哪里，工作的时候静静陪着。</p>
+            </article>
+            <article class="card">
+              <h3>壁纸联动，透明播放框</h3>
+              <p>播放框与壁纸里的电视大小一致，不播放时完全透明，桌面还是那张桌面。</p>
+            </article>
+            <article class="card">
+              <h3>悬停即播，移开即隐</h3>
+              <p>光标移过去，培训视频就开始；移开就暂停并恢复透明，不留一个多余的窗口。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="demo" class="reveal demo-section">
+          <h2>看看它怎么用</h2>
+          <div class="demo">
+            <video
+              id="demo-video"
+              src="./assets/pawcast-demo.mp4"
+              poster="./assets/pawcast-demo-poster.jpg"
+              width="1440"
+              height="910"
+              controls
+              playsinline
+              preload="none"
+            ></video>
+            <p id="demo-fallback" class="demo__fallback" hidden>
+              演示视频暂时加载不出来，可以刷新页面再试一次；也可以直接下载应用亲自体验。
+            </p>
+          </div>
+        </section>
+
+        <section id="download" class="reveal download">
+          <h2>下载</h2>
+          <div class="download__actions">
+            <a
+              class="btn"
+              href="./downloads/PawCast-0.1.0-arm64.dmg"
+              download
+              data-download-link
+            >
+              下载 PawCast for macOS
+            </a>
+          </div>
+          <ol class="steps">
+            <li>把 PawCast 拖进「应用程序」</li>
+            <li>右键点按应用图标，选择「打开」</li>
+            <li>确认后即可使用</li>
+          </ol>
+          <p class="download__note">
+            适用于 Apple Silicon（arm64）。应用未签名，首次打开需要右键「打开」。
+          </p>
+          <p class="download__note">
+            安装包文件名 <code>PawCast-0.1.0-arm64.dmg</code>，SHA-256 校验值：<code>a41c7aa21d4f4407daea0506b2918e88e43733b251fd4db96308e8cb62f47cfb</code>。
+          </p>
+        </section>
+      </main>
+
+      <footer class="site-footer">PawCast · macOS 桌面宠物与壁纸联动播放器</footer>
+    </div>
+    <script>
+      // 进入视口时 8px 上移淡入；无 IntersectionObserver 或用户要求减少动效时直接显示。
+      (function () {
+        var nodes = document.querySelectorAll('.reveal');
+        if (!document.documentElement.classList.contains('js')) {
+          for (var i = 0; i < nodes.length; i += 1) nodes[i].classList.add('is-visible');
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          });
+        }, { rootMargin: '0px 0px -10% 0px' });
+        for (var j = 0; j < nodes.length; j += 1) io.observe(nodes[j]);
+      })();
+
+      // 视频加载失败时藏起播放器、显示中文兜底文案，避免留下空白黑块。
+      (function () {
+        var video = document.getElementById('demo-video');
+        var fallback = document.getElementById('demo-fallback');
+        if (!video || !fallback) return;
+        video.addEventListener('error', function () {
+          video.hidden = true;
+          fallback.hidden = false;
+        });
+      })();
+    </script>
+    <script src="./main.js"></script>
+  </body>
+</html>
