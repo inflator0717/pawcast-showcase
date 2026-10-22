@@ -40,7 +40,7 @@
           <h1>桌面宠物，陪你学点东西</h1>
           <p class="hero__lede">把培训视频放进你的桌面壁纸里。</p>
           <a class="btn" href="#download">下载 macOS 版</a>
-          <p class="hero__meta">v0.1.0 · Apple Silicon · 约 142 MB</p>
+          <p class="hero__meta">v0.1.0 · Apple Silicon · 约 134 MB</p>
         </section>
 
         <section id="positioning" class="reveal positioning">
@@ -101,14 +101,16 @@
           </div>
           <ol class="steps">
             <li>把 PawCast 拖进「应用程序」</li>
-            <li>右键点按应用图标，选择「打开」</li>
-            <li>确认后即可使用</li>
+            <li>首次打开会提示「无法验证开发者」，点「完成」</li>
+            <li>打开「系统设置 → 隐私与安全性」，在下方点「仍要打开」</li>
+            <li>回到访达再次打开 PawCast，确认「打开」</li>
           </ol>
           <p class="download__note">
-            适用于 Apple Silicon（arm64）。应用未签名，首次打开需要右键「打开」。
+            适用于 Apple Silicon（arm64）。应用未做开发者签名与公证，macOS 15 起右键「打开」已不再能绕过，
+            需按上面的步骤到系统设置里放行一次。只需操作一次，之后双击即可打开。
           </p>
           <p class="download__note">
-            安装包文件名 <code>PawCast-0.1.0-arm64.dmg</code>，SHA-256 校验值：<code>a41c7aa21d4f4407daea0506b2918e88e43733b251fd4db96308e8cb62f47cfb</code>。
+            安装包文件名 <code>PawCast-0.1.0-arm64.dmg</code>，SHA-256 校验值：<code>cd9ffd96f9865f29670bd523d22da885caeeb2f4a1e8488ac3b252d12ffe2fb5</code>。
           </p>
         </section>
       </main>
